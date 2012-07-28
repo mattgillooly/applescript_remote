@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'net/http'
+require "uri"
+
+uri = URI.parse("http://10.0.1.26:4567/run")
+
+response = Net::HTTP.post_form(uri, {"cmd" => ARGV.join(' ')})
+
