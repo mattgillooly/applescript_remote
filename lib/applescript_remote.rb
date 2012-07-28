@@ -3,21 +3,28 @@
 require 'rubygems'
 require 'bundler'
 require 'sinatra'
+require 'rack-flash'
+
+require 'applescript_remote/command'
 
 module ApplescriptRemote
-  class Application < Sinatra::Base
+
+  def self.execute(cmd)
+    Command.new(cmd).execute
+  end
+
+  class Web < Sinatra::Base
+    enable :sessions
+    use Rack::Flash
+
     get '/' do
-      @last_result = session[:last_result]
-      session[:last_result] = nil
+      @last_result = flash[:notice]
 
       erb :form
     end
 
     post '/run' do
-      result = AppleScript.execute(params[:cmd])
-      session[:last_result] = result
-
-      puts "Got result: #{result}"
+      flash[:notice] = ApplescriptRemote.execute(params[:cmd])
 
       redirect to('/')
     end
@@ -25,7 +32,8 @@ module ApplescriptRemote
 
   def self.app
     @app ||= Rack::Builder.new do
-      run Application
+      run Web
     end
   end
+
 end
