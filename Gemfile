@@ -7,6 +7,8 @@ gem 'rake'
 
 gem 'thin'
 
+gem 'applescript'
+
 group :test do 
   gem 'rspec'
   gem 'rack-test'

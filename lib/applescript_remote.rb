@@ -11,7 +11,7 @@ module ApplescriptRemote
     end
 
     post '/run' do
-      `#{params[:cmd]}`
+      AppleScript.execute(params[:cmd])
 
       redirect to('/')
     end
