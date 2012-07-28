@@ -7,11 +7,17 @@ require 'sinatra'
 module ApplescriptRemote
   class Application < Sinatra::Base
     get '/' do
+      @last_result = session[:last_result]
+      session[:last_result] = nil
+
       erb :form
     end
 
     post '/run' do
-      AppleScript.execute(params[:cmd])
+      result = AppleScript.execute(params[:cmd])
+      session[:last_result] = result
+
+      puts "Got result: #{result}"
 
       redirect to('/')
     end
