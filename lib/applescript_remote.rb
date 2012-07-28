@@ -1,11 +1,25 @@
+# encoding: UTF-8
+
+require 'rubygems'
+require 'bundler'
 require 'sinatra'
 
-get '/' do
-  erb :form
-end
+module ApplescriptRemote
+  class Application < Sinatra::Base
+    get '/' do
+      erb :form
+    end
 
-post '/run' do
-  `#{params[:cmd]}`
+    post '/run' do
+      `#{params[:cmd]}`
 
-  redirect to('/')
+      redirect to('/')
+    end
+  end
+
+  def self.app
+    @app ||= Rack::Builder.new do
+      run Application
+    end
+  end
 end
