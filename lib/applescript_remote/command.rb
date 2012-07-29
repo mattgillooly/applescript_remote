@@ -1,4 +1,5 @@
 require "data_mapper"
+require "applescript"
 
 module ApplescriptRemote
 
@@ -7,7 +8,6 @@ module ApplescriptRemote
 
     property :id,          Serial
     property :applescript, String
-
 
     def initialize(applescript)
       self.applescript = applescript
