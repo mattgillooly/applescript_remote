@@ -1,16 +1,9 @@
-<html>
-  <head><title>Run You A Applescript</title></head>
-  <body>
-    <form action="/run" method="post">
-      <textarea name="cmd" rows="30" cols="80"></textarea>
-      <br />
+%form{'action' => "/run", 'method' => "post"}
+  %textarea{:name => "cmd", :rows => "10", :cols => "1000"}
+    = nil
+  %br/
+  %input{'type' => "submit", 'value' => "Run Now"}/
 
-      <input type="submit" value="Run Now" />
-    </form>
-
-    <% if @last_result %>
-      <h3>Last Result</h1>
-      <code><%= @last_result %></code>
-    <% end %>
-  </body>
-</html>
+- if last_result
+  %h3 Last Result
+  %code= last_result

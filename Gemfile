@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem 'sinatra'
+gem 'haml'
 
 gem 'rack'
 gem 'rack-flash3'
