@@ -1,15 +1,22 @@
+require "data_mapper"
+
 module ApplescriptRemote
 
   class Command
+    include DataMapper::Resource
+
+    property :id,          Serial
+    property :applescript, String
+
 
     def initialize(applescript)
-      @applescript = applescript
+      self.applescript = applescript
     end
 
     def execute
-      log "Executing: #{@applescript}"
+      log "Executing: #{applescript}"
 
-      result = AppleScript.execute(@applescript)
+      result = AppleScript.execute(applescript)
       log "Got result: #{result}"
 
       result

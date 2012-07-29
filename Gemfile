@@ -9,6 +9,9 @@ gem 'rake'
 
 gem 'thin'
 
+gem 'datamapper'
+gem 'dm-sqlite-adapter'
+
 gem 'applescript'
 
 group :test do 

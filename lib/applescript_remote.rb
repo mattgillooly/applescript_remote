@@ -6,28 +6,21 @@ require 'sinatra'
 require 'rack-flash'
 
 require 'applescript_remote/command'
+require 'applescript_remote/web'
+
+require "data_mapper"
+DataMapper.setup(:default, "sqlite3::memory:")
 
 module ApplescriptRemote
 
+  Command.auto_migrate!
+
   def self.execute(cmd)
-    Command.new(cmd).execute
-  end
+    c = Command.new(cmd)
+    result = c.execute
+    c.save!
 
-  class Web < Sinatra::Base
-    enable :sessions
-    use Rack::Flash
-
-    get '/' do
-      @last_result = flash[:notice]
-
-      erb :form
-    end
-
-    post '/run' do
-      flash[:notice] = ApplescriptRemote.execute(params[:cmd])
-
-      redirect to('/')
-    end
+    result
   end
 
   def self.app
