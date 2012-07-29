@@ -8,7 +8,11 @@ module ApplescriptRemote
     set :layout, :layout
 
     get '/' do
-      haml :form, :locals => { :last_result => flash[:notice] }
+      haml :home,
+           :locals => {
+             :last_result => flash[:notice],
+             :commands => Command.all
+           }
     end
 
     post '/run' do

@@ -1,9 +1,0 @@
-%form{'action' => "/run", 'method' => "post"}
-  %textarea{:name => "cmd", :rows => "10", :cols => "1000"}
-    = nil
-  %br/
-  %input{'type' => "submit", 'value' => "Run Now"}/
-
-- if last_result
-  %h3 Last Result
-  %code= last_result

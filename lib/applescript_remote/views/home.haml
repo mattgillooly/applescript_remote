@@ -1,0 +1,17 @@
+%div.row
+  %div.span6
+    %form{'action' => "/run", 'method' => "post"}
+      %textarea#cmd{:name => "cmd", :rows => "10", :cols => "1000"}
+        = nil
+      %br/
+      %input{'type' => "submit", 'value' => "Run Now"}/
+
+    - unless [nil, ''].include?(last_result)
+      %h3 Last Result
+      %code= last_result
+
+  %div.span6
+    %table
+      - commands.each do |command|
+        %tr
+          %td= command.applescript
